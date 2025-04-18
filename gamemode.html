@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World Flashcards</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .app-container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .mode-toggle {
+            margin-bottom: 20px;
+        }
+        
+        .flashcard {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .flag {
+            font-size: 100px;
+            margin-bottom: 10px;
+        }
+
+        .flag img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .country-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .language {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .hello {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+	    align-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #3e8e41;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+	.progress {
+	    margin-top: 20px;
+	    width: 100%;
+	}
+	
+	.progress-text {
+	    margin-bottom: 5px;
+	    text-align: center;
+	    color: #555;
+	}
+
+	.progress-bar-container {
+	    width: 100%;
+	    background-color: #e0e0e0;
+	    border-radius: 5px;
+	    height: 10px;
+	    overflow: hidden;
+	}
+
+	.progress-bar {
+	    height: 100%;
+	    background-color: #4CAF50;
+	    width: 0%;
+	    transition: width 0.3s ease;
+	}
+
+	/* Change color in Hard Mode */
+	.hard-mode .progress-bar {
+	    background-color: #FF9800;
+	}
+        
+        /* New styles for game mode */
+        .game-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        /* Hard mode has 6 options in 3x2 grid */
+        .game-options.hard-mode {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .option-button {
+            padding: 15px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option-button:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .option-button.correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .option-button.incorrect {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .mode-toggle button {
+            margin: 0 5px;
+        }
+        
+        .active-mode {
+            background-color: #2196F3;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+        
+        .game-stats {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .continue-button {
+            margin-top: 15px;
+            background-color: #2196F3;
+        }
+        
+        .game-over {
+            font-size: 24px;
+            color: #f44336;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .restart-button {
+            margin-top: 15px;
+            background-color: #f44336;
+        }
+        
+        .hard-mode-button {
+            margin-top: 15px;
+            margin-left: 10px;
+            background-color: #FF9800;
+        }
+        
+	.hard-mode-indicator {
+	    background-color: #FF9800;
+	    color: white;
+	    padding: 5px 10px;
+	    border-radius: 5px;
+	    font-weight: bold;
+	    display: none;
+	    text-align: center;
+	    flex-grow: 1;
+	    margin: 0 10px;
+	}
+        
+        .hard-mode-indicator.active {
+            display: inline-block;
+        }
+
+        .feedback-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .feedback-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .feedback-overlay .feedback {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .feedback-overlay .game-over {
+            margin-bottom: 20px;
+        }
+
+        .feedback-overlay button {
+            margin-top: 15px;
+        }
+        
+        .mode-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <h1>Hello World Flashcards</h1>
+        
+        <div class="mode-toggle">
+            <button id="study-mode-btn" class="active-mode">Study Mode</button>
+            <button id="game-mode-btn">Game Mode</button>
+        </div>
+        
+        <div class="flashcard" id="flashcard">
+            <div class="card-front">
+                <div class="flag" id="flag">🇺🇸</div>
+                <div class="country-name" id="country">United States</div>
+                <p id="flip-instruction">Tap to see how to say "Hello"</p>
+            </div>
+            <div class="card-back">
+                <!-- This part will change based on the mode -->
+                <div id="study-content">
+                    <div class="flag" id="flag-back">🇺🇸</div>
+                    <div class="country-name" id="country-back">United States</div>
+                    <div class="language" id="language">English</div>
+                    <div class="hello" id="hello">Hello</div>
+                </div>
+                
+                <div id="game-content" style="display: none;">
+                    <div class="flag" id="flag-game">🇺🇸</div>
+                    <div class="country-name" id="country-game">United States</div>
+                    <div class="game-options" id="options-container">
+                        <!-- Options will be generated here -->
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <button id="continue-btn" class="continue-button" style="display: none;">Continue</button>
+                    <div class="game-over" id="game-over" style="display: none;">Game Over!</div>
+                    <button id="restart-btn" class="restart-button" style="display: none;">Restart Game</button>
+                    <div class="feedback-overlay" id="feedback-overlay">
+                        <div class="feedback" id="overlay-feedback"></div>
+                        <div class="game-over" id="overlay-game-over" style="display: none;">Game Over!</div>
+                        <div class="mode-buttons">
+                            <button id="overlay-continue-btn" class="continue-button" style="display: none;">Continue</button>
+                            <button id="overlay-restart-btn" class="restart-button" style="display: none;">Play Again</button>
+                            <button id="overlay-hard-mode-btn" class="hard-mode-button" style="display: none;">Hard Mode</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="prev-btn" disabled>Previous</button>
+            <div class="hard-mode-indicator" id="hard-mode-indicator">HARD MODE</div>
+            <button id="next-btn">Next</button>
+        </div>
+        
+	<div class="progress">
+	    <div class="progress-text">
+	        Card <span id="current-card">1</span> of <span id="total-cards">10</span>
+	    </div>
+	    <div class="progress-bar-container">
+	        <div class="progress-bar" id="progress-bar"></div>
+	    </div>
+	</div>
+    </div>
+
+    <script>
+        // Expanded data with more languages
+        const languageData = [
+            {
+                country: "United States",
+                flag: "https://flagcdn.com/us.svg",
+                language: "English",
+                hello: "Hello"
+            },
+            {
+                country: "France",
+                flag: "https://flagcdn.com/fr.svg",
+                language: "French",
+                hello: "Bonjour"
+            },
+            {
+                country: "Japan",
+                flag: "https://flagcdn.com/jp.svg",
+                language: "Japanese",
+                hello: "こんにちは (Konnichiwa)"
+            },
+            {
+                country: "Spain",
+                flag: "https://flagcdn.com/es.svg",
+                language: "Spanish",
+                hello: "Hola"
+            },
+            {
+                country: "Germany",
+                flag: "https://flagcdn.com/de.svg",
+                language: "German",
+                hello: "Hallo"
+            },
+            {
+                country: "Italy",
+                flag: "https://flagcdn.com/it.svg",
+                language: "Italian",
+                hello: "Ciao"
+            },
+            {
+                country: "Russia",
+                flag: "https://flagcdn.com/ru.svg",
+                language: "Russian",
+                hello: "Привет (Privet)"
+            },
+            {
+                country: "China",
+                flag: "https://flagcdn.com/cn.svg",
+                language: "Mandarin",
+                hello: "你好 (Nǐ hǎo)"
+            },
+            {
+                country: "Korea",
+                flag: "https://flagcdn.com/kr.svg",
+                language: "Korean",
+                hello: "안녕하세요 (Annyeonghaseyo)"
+            },
+            {
+                country: "Brazil",
+                flag: "https://flagcdn.com/br.svg",
+                language: "Portuguese",
+                hello: "Olá"
+            }
+        ];
+        
+        // DOM elements
+        const flashcard = document.getElementById('flashcard');
+        const flagElement = document.getElementById('flag');
+        const countryElement = document.getElementById('country');
+        const flagBackElement = document.getElementById('flag-back');
+        const countryBackElement = document.getElementById('country-back');
+        const languageElement = document.getElementById('language');
+        const helloElement = document.getElementById('hello');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentCardElement = document.getElementById('current-card');
+        const totalCardsElement = document.getElementById('total-cards');
+        const studyModeBtn = document.getElementById('study-mode-btn');
+        const gameModeBtn = document.getElementById('game-mode-btn');
+        const studyContent = document.getElementById('study-content');
+        const gameContent = document.getElementById('game-content');
+        const optionsContainer = document.getElementById('options-container');
+        const flagGame = document.getElementById('flag-game');
+        const countryGame = document.getElementById('country-game');
+        const feedbackElement = document.getElementById('feedback');
+        const flipInstruction = document.getElementById('flip-instruction');
+        const continueBtn = document.getElementById('continue-btn');
+        const gameOverElement = document.getElementById('game-over');
+        const restartBtn = document.getElementById('restart-btn');
+        const feedbackOverlay = document.getElementById('feedback-overlay');
+        const overlayFeedback = document.getElementById('overlay-feedback');
+        const overlayGameOver = document.getElementById('overlay-game-over');
+        const overlayContinueBtn = document.getElementById('overlay-continue-btn');
+        const overlayRestartBtn = document.getElementById('overlay-restart-btn');
+        const overlayHardModeBtn = document.getElementById('overlay-hard-mode-btn');
+        const hardModeIndicator = document.getElementById('hard-mode-indicator');
+        
+        // State variables
+        let currentCardIndex = 0;
+        const totalCards = languageData.length;
+        let isGameMode = false;
+        let isHardMode = false;
+        let currentOptions = [];
+        let hasAnsweredCorrectly = false;
+        
+        // Initialize
+        totalCardsElement.textContent = totalCards;
+        // Shuffle cards on page load
+        shuffleCards();
+        updateCard();
+        
+        // Event listeners
+        flashcard.addEventListener('click', handleCardClick);
+        prevBtn.addEventListener('click', previousCard);
+        nextBtn.addEventListener('click', nextCard);
+        studyModeBtn.addEventListener('click', switchToStudyMode);
+        gameModeBtn.addEventListener('click', switchToGameMode);
+        continueBtn.addEventListener('click', continueToNextCard);
+        restartBtn.addEventListener('click', restartGame);
+        overlayContinueBtn.addEventListener('click', continueToNextCard);
+        overlayRestartBtn.addEventListener('click', function() {
+            restartGame(false); // Restart in normal mode
+        });
+        overlayHardModeBtn.addEventListener('click', function() {
+            restartGame(true); // Restart in hard mode
+        });
+        
+        // Functions
+        // Shuffle the languageData array
+        function shuffleCards() {
+            for (let i = languageData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [languageData[i], languageData[j]] = [languageData[j], languageData[i]];
+            }
+        }
+
+        function updateCard() {
+            const cardData = languageData[currentCardIndex];
+            
+            // Update front of card
+            flagElement.innerHTML = `<img src="${cardData.flag}" alt="${cardData.country} flag" width="200">`;
+            
+            // In hard mode, don't show country name on front
+            if (isHardMode && isGameMode) {
+                countryElement.style.display = 'none';
+                flipInstruction.textContent = 'Tap to identify the language';
+            } else {
+                countryElement.style.display = 'block';
+                countryElement.textContent = cardData.country;
+                flipInstruction.textContent = isGameMode ? 'Tap to play the game' : 'Tap to see how to say "Hello"';
+            }
+            
+            // Update back of card - study mode
+            flagBackElement.innerHTML = `<img src="${cardData.flag}" alt="${cardData.country} flag" width="80">`;
+            countryBackElement.textContent = cardData.country;
+            languageElement.textContent = cardData.language;
+            helloElement.textContent = cardData.hello;
+            
+            // Update back of card - game mode
+            flagGame.innerHTML = `<img src="${cardData.flag}" alt="${cardData.country} flag" width="80">`;
+            
+	    // Hide country name in game content in hard mode
+	    if (isHardMode) {
+	        countryGame.style.display = 'none';
+	    } else {
+	        countryGame.style.display = 'block';
+	        countryGame.textContent = cardData.country;
+	    }
+            
+            if (isGameMode) {
+                generateOptions();
+                continueBtn.style.display = 'none';
+                gameOverElement.style.display = 'none';
+                restartBtn.style.display = 'none';
+            }
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentCardIndex === 0 || isGameMode;
+            nextBtn.disabled = currentCardIndex === totalCards - 1 || isGameMode;
+            
+            // Update progress
+            currentCardElement.textContent = currentCardIndex + 1;
+            
+            // Reset card flip and feedback
+            flashcard.classList.remove('flipped');
+            feedbackElement.textContent = '';
+            hasAnsweredCorrectly = false;
+
+            // Also reset the overlay
+            feedbackOverlay.classList.remove('visible');
+            overlayContinueBtn.style.display = 'none';
+            overlayGameOver.style.display = 'none';
+            overlayRestartBtn.style.display = 'none';
+            overlayHardModeBtn.style.display = 'none';
+            
+            // Update hard mode indicator
+            if (isHardMode && isGameMode) {
+                hardModeIndicator.classList.add('active');
+            } else {
+                hardModeIndicator.classList.remove('active');
+            }
+	    // Update progress bar
+	    const progressPercent = ((currentCardIndex + 1) / totalCards) * 100;
+	    const progressBar = document.getElementById('progress-bar');
+	    progressBar.style.width = progressPercent + '%';
+
+	    // Update progress bar color based on mode
+	    if (isHardMode) {
+	        document.querySelector('.progress').classList.add('hard-mode');
+	    } else {
+	        document.querySelector('.progress').classList.remove('hard-mode');
+	    }
+        }
+        
+        function handleCardClick() {
+            if (isGameMode && flashcard.classList.contains('flipped')) {
+                // Don't do anything if already flipped in game mode
+                // (user needs to select an option)
+                return;
+            }
+            
+            flashcard.classList.toggle('flipped');
+        }
+        
+        function previousCard() {
+            if (currentCardIndex > 0 && !isGameMode) {
+                // First check if the card is flipped
+                if (flashcard.classList.contains('flipped')) {
+                    // Flip the card back
+                    flashcard.classList.remove('flipped');
+                
+                    // Wait for the flip animation to complete before moving to prev card
+                    setTimeout(function() {
+                        currentCardIndex--;
+                        updateCard();
+                    }, 150); // 150ms delay to match flip animation
+                } else {
+                    // If card is not flipped, just move to previous card
+                    currentCardIndex--;
+                    updateCard();
+                }
+            }
+        }
+        
+        function nextCard() {
+            if (currentCardIndex < totalCards - 1 && !isGameMode) {
+                // First check if the card is flipped
+                if (flashcard.classList.contains('flipped')) {
+                    // Flip the card back
+                    flashcard.classList.remove('flipped');
+                
+                    // Wait for the flip animation to complete before moving to next card
+                    setTimeout(function() {
+                        currentCardIndex++;
+                        updateCard();
+                    }, 150); // 150ms delay to match flip animation
+                } else {
+                    // If card is not flipped, just move to next card
+                    currentCardIndex++;
+                    updateCard();
+                }
+            }
+        }
+        
+        function switchToStudyMode() {
+            isGameMode = false;
+            studyModeBtn.classList.add('active-mode');
+            gameModeBtn.classList.remove('active-mode');
+            studyContent.style.display = 'block';
+            gameContent.style.display = 'none';
+            flipInstruction.textContent = 'Tap to see how to say "Hello"';
+            
+            // Enable navigation in study mode
+            prevBtn.disabled = currentCardIndex === 0;
+            nextBtn.disabled = currentCardIndex === totalCards - 1;
+            
+            // Reset hard mode when switching to study mode
+            isHardMode = false;
+            hardModeIndicator.classList.remove('active');
+            
+            updateCard();
+        }
+        
+        function switchToGameMode() {
+            isGameMode = true;
+            gameModeBtn.classList.add('active-mode');
+            studyModeBtn.classList.remove('active-mode');
+            studyContent.style.display = 'none';
+            gameContent.style.display = 'block';
+            flipInstruction.textContent = isHardMode ? 'Tap to identify the language' : 'Tap to play the game';
+            
+            // Disable navigation in game mode
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
+            
+            // Reset game state
+            currentCardIndex = 0;
+            
+            // Shuffle cards when entering game mode
+            shuffleCards();
+            
+            updateCard();
+        }
+        
+        function generateOptions() {
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+            
+            // Get the correct answer
+            const correctAnswer = languageData[currentCardIndex].hello;
+            
+            // Number of options based on mode
+            const numOptions = isHardMode ? 6 : 4;
+            
+            // Generate random unique options
+            let options = [correctAnswer];
+            while (options.length < numOptions) {
+                const randomIndex = Math.floor(Math.random() * languageData.length);
+                const randomHello = languageData[randomIndex].hello;
+                
+                // Make sure we don't add duplicates
+                if (!options.includes(randomHello)) {
+                    options.push(randomHello);
+                }
+            }
+            
+            // Shuffle options
+            options = shuffleArray(options);
+            
+            // Store the current options for checking answers later
+            currentOptions = options;
+            
+            // Apply hard mode class if needed
+            if (isHardMode) {
+                optionsContainer.classList.add('hard-mode');
+            } else {
+                optionsContainer.classList.remove('hard-mode');
+            }
+            
+            // Create buttons for each option
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = 'option-button';
+                button.dataset.index = index;
+                
+                button.addEventListener('click', function() {
+                    checkAnswer(option);
+                });
+                
+                optionsContainer.appendChild(button);
+            });
+        }
+        
+        function checkAnswer(selectedOption) {
+            const correctAnswer = languageData[currentCardIndex].hello;
+            const allOptions = document.querySelectorAll('.option-button');
+            
+            // Disable all options
+            allOptions.forEach(button => {
+                button.disabled = true;
+                
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct');
+                } else if (button.textContent === selectedOption && selectedOption !== correctAnswer) {
+                    button.classList.add('incorrect');
+                }
+            });
+            
+            // Show feedback in overlay
+            if (selectedOption === correctAnswer) {
+                overlayFeedback.textContent = 'Correct! 🎉';
+                overlayFeedback.style.color = '#4CAF50';
+                hasAnsweredCorrectly = true;
+                
+                // If it's the last card, show game completion message
+                if (currentCardIndex === totalCards - 1) {
+                    overlayFeedback.textContent = 'Congratulations! You completed all cards!';
+                    overlayRestartBtn.style.display = 'inline-block';
+                    overlayHardModeBtn.style.display = 'inline-block';
+                } else {
+                    // Show continue button
+                    overlayContinueBtn.style.display = 'inline-block';
+                }
+            } else {
+                // Show game over message
+                overlayFeedback.textContent = 'Wrong answer!';
+                overlayFeedback.style.color = '#f44336';
+                overlayGameOver.style.display = 'block';
+                overlayRestartBtn.style.display = 'inline-block';
+                overlayHardModeBtn.style.display = 'inline-block';
+            }
+            
+            // Show the overlay
+            feedbackOverlay.classList.add('visible');
+        }
+        
+        function continueToNextCard() {
+            if (currentCardIndex < totalCards - 1 && hasAnsweredCorrectly) {
+                // Hide the overlay
+                feedbackOverlay.classList.remove('visible');
+                // Reset the overlay elements
+                overlayContinueBtn.style.display = 'none';
+                overlayGameOver.style.display = 'none';
+                overlayRestartBtn.style.display = 'none';
+                overlayHardModeBtn.style.display = 'none';
+                
+                // Wait a moment for the overlay to fade away
+                setTimeout(function() {
+                    // First flip the card back
+                    flashcard.classList.remove('flipped');
+                    
+                    // Then wait for the flip animation to complete before moving to next card
+                    setTimeout(function() {
+                        currentCardIndex++;
+                        updateCard();
+                    }, 150); // Same 150ms delay you used earlier
+                }, 300);
+            }
+        }
+        
+        function restartGame(hardMode = null) {
+            // If hardMode parameter is provided, update the isHardMode state
+            if (hardMode !== null) {
+                isHardMode = hardMode;
+            }
+            
+            // Hide the overlay
+            feedbackOverlay.classList.remove('visible');
+            // Reset the overlay elements
+            overlayContinueBtn.style.display = 'none';
+            overlayGameOver.style.display = 'none';
+            overlayRestartBtn.style.display = 'none';
+            overlayHardModeBtn.style.display = 'none';
+            
+            // Wait a moment for the overlay to fade away
+            setTimeout(function() {
+                // First flip the card back
+                flashcard.classList.remove('flipped');
+                
+                // Then wait for the flip animation to complete before resetting
+                setTimeout(function() {
+                    // Reset everything
+                    currentCardIndex = 0;
+                    hasAnsweredCorrectly = false;
+                    // Shuffle the cards for a new game
+                    shuffleCards();
+                    updateCard();
+                }, 150); // Same 150ms delay you used earlier
+            }, 300);
+        }
+        
+        // Helper function to shuffle array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+</body>
+</html>

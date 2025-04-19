@@ -1668,8 +1668,8 @@
             // Update back of card - game mode
             flagGame.innerHTML = `<img src="${cardData.flag}" alt="${cardData.country} flag" width="80">`;
             
-	    // Hide country name in game content in hard mode
-	    if (isHardMode) {
+	    // Hide country name in game content in game mode
+	    if (isGameMode) {
 	        countryGame.style.display = 'none';
 	    } else {
 	        countryGame.style.display = 'block';

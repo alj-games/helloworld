@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World Flashcards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barrio&display=swap" rel="stylesheet">
+    <title>HELLO WORLD</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,9 +14,22 @@
             padding: 0;
             font-family: 'Arial', sans-serif;
         }
+	body::before {
+	    content: '';
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background-color: rgba(255, 255, 255, 0.7); /* White overlay */
+	    z-index: -1;
+	}
         
         body {
-            background-color: #f5f5f5;
+	    background-image: url('https://i.imgur.com/MWYQXzQ.png');
+	    background-size: cover; /* Cover the entire page */
+	    background-position: center;
+	    background-attachment: fixed; /* Fixed background when scrolling */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,11 +43,16 @@
             width: 100%;
             text-align: center;
         }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
+       
+	h1 {
+	    color: white;
+	    margin-bottom: 20px;
+	    font-family: "Barrio", system-ui;
+  	    font-weight: 600;
+  	    font-style: normal;
+	    font-size: 72px;
+	    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Dark shadow for contrast */
+	}
         
         .mode-toggle {
             margin-bottom: 20px;
@@ -267,7 +288,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -280,7 +301,7 @@
         }
 
         .feedback-overlay.visible {
-            opacity: 1;
+            opacity: 2;
             visibility: visible;
         }
 
@@ -307,7 +328,7 @@
 </head>
 <body>
     <div class="app-container">
-        <h1>Hello World Flashcards</h1>
+        <h1>Hello World!</h1>
         
         <div class="mode-toggle">
             <button id="study-mode-btn" class="active-mode">Study Mode</button>
@@ -337,7 +358,7 @@
                     </div>
                     <div class="feedback" id="feedback"></div>
                     <button id="continue-btn" class="continue-button" style="display: none;">Continue</button>
-                    <div class="game-over" id="game-over" style="display: none;">Game Over!</div>
+                    <div class="game-over" id="game-over" style="display: none;">Keep trying!</div>
                     <button id="restart-btn" class="restart-button" style="display: none;">Restart Game</button>
                     <div class="feedback-overlay" id="feedback-overlay">
                         <div class="feedback" id="overlay-feedback"></div>
@@ -371,66 +392,1182 @@
     <script>
         // Expanded data with more languages
         const languageData = [
-            {
-                country: "United States",
-                flag: "https://flagcdn.com/us.svg",
-                language: "English",
-                hello: "Hello"
-            },
-            {
-                country: "France",
-                flag: "https://flagcdn.com/fr.svg",
-                language: "French",
-                hello: "Bonjour"
-            },
-            {
-                country: "Japan",
-                flag: "https://flagcdn.com/jp.svg",
-                language: "Japanese",
-                hello: "こんにちは (Konnichiwa)"
-            },
-            {
-                country: "Spain",
-                flag: "https://flagcdn.com/es.svg",
-                language: "Spanish",
-                hello: "Hola"
-            },
-            {
-                country: "Germany",
-                flag: "https://flagcdn.com/de.svg",
-                language: "German",
-                hello: "Hallo"
-            },
-            {
-                country: "Italy",
-                flag: "https://flagcdn.com/it.svg",
-                language: "Italian",
-                hello: "Ciao"
-            },
-            {
-                country: "Russia",
-                flag: "https://flagcdn.com/ru.svg",
-                language: "Russian",
-                hello: "Привет (Privet)"
-            },
-            {
-                country: "China",
-                flag: "https://flagcdn.com/cn.svg",
-                language: "Mandarin",
-                hello: "你好 (Nǐ hǎo)"
-            },
-            {
-                country: "Korea",
-                flag: "https://flagcdn.com/kr.svg",
-                language: "Korean",
-                hello: "안녕하세요 (Annyeonghaseyo)"
-            },
-            {
-                country: "Brazil",
-                flag: "https://flagcdn.com/br.svg",
-                language: "Portuguese",
-                hello: "Olá"
-            }
+    {
+        country: "United States",
+        flag: "https://flagcdn.com/us.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "France",
+        flag: "https://flagcdn.com/fr.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Afghanistan",
+        flag: "https://flagcdn.com/af.svg",
+        language: "Pashto/Dari",
+        hello: "Salaam"
+    },
+    {
+        country: "Albania",
+        flag: "https://flagcdn.com/al.svg",
+        language: "Albanian",
+        hello: "Përshëndetje"
+    },
+    {
+        country: "Algeria",
+        flag: "https://flagcdn.com/dz.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Andorra",
+        flag: "https://flagcdn.com/ad.svg",
+        language: "Catalan",
+        hello: "Hola"
+    },
+    {
+        country: "Angola",
+        flag: "https://flagcdn.com/ao.svg",
+        language: "Portuguese",
+        hello: "Olá"
+    },
+    {
+        country: "Antigua and Barbuda",
+        flag: "https://flagcdn.com/ag.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Argentina",
+        flag: "https://flagcdn.com/ar.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Armenia",
+        flag: "https://flagcdn.com/am.svg",
+        language: "Armenian",
+        hello: "Barev"
+    },
+    {
+        country: "Australia",
+        flag: "https://flagcdn.com/au.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Austria",
+        flag: "https://flagcdn.com/at.svg",
+        language: "German",
+        hello: "Hallo"
+    },
+    {
+        country: "Azerbaijan",
+        flag: "https://flagcdn.com/az.svg",
+        language: "Azerbaijani",
+        hello: "Salam"
+    },
+    {
+        country: "Bahamas",
+        flag: "https://flagcdn.com/bs.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Bahrain",
+        flag: "https://flagcdn.com/bh.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Bangladesh",
+        flag: "https://flagcdn.com/bd.svg",
+        language: "Bengali",
+        hello: "Nomoshkar"
+    },
+    {
+        country: "Barbados",
+        flag: "https://flagcdn.com/bb.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Belarus",
+        flag: "https://flagcdn.com/by.svg",
+        language: "Belarusian",
+        hello: "Pryvitannie"
+    },
+    {
+        country: "Belgium",
+        flag: "https://flagcdn.com/be.svg",
+        language: "Dutch/French/German",
+        hello: "Hallo/Bonjour/Hallo"
+    },
+    {
+        country: "Belize",
+        flag: "https://flagcdn.com/bz.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Benin",
+        flag: "https://flagcdn.com/bj.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Bhutan",
+        flag: "https://flagcdn.com/bt.svg",
+        language: "Dzongkha",
+        hello: "Kuzu Zangpo"
+    },
+    {
+        country: "Bolivia",
+        flag: "https://flagcdn.com/bo.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Bosnia and Herzegovina",
+        flag: "https://flagcdn.com/ba.svg",
+        language: "Bosnian/Croatian/Serbian",
+        hello: "Zdravo"
+    },
+    {
+        country: "Botswana",
+        flag: "https://flagcdn.com/bw.svg",
+        language: "English/Tswana",
+        hello: "Hello/Dumela"
+    },
+    {
+        country: "Brazil",
+        flag: "https://flagcdn.com/br.svg",
+        language: "Portuguese",
+        hello: "Olá"
+    },
+    {
+        country: "Brunei",
+        flag: "https://flagcdn.com/bn.svg",
+        language: "Malay",
+        hello: "Selamat"
+    },
+    {
+        country: "Bulgaria",
+        flag: "https://flagcdn.com/bg.svg",
+        language: "Bulgarian",
+        hello: "Zdraveite"
+    },
+    {
+        country: "Burkina Faso",
+        flag: "https://flagcdn.com/bf.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Burundi",
+        flag: "https://flagcdn.com/bi.svg",
+        language: "Kirundi/French",
+        hello: "Amahoro/Bonjour"
+    },
+    {
+        country: "Cambodia",
+        flag: "https://flagcdn.com/kh.svg",
+        language: "Khmer",
+        hello: "Sua s'dei"
+    },
+    {
+        country: "Cameroon",
+        flag: "https://flagcdn.com/cm.svg",
+        language: "English/French",
+        hello: "Hello/Bonjour"
+    },
+    {
+        country: "Canada",
+        flag: "https://flagcdn.com/ca.svg",
+        language: "English/French",
+        hello: "Hello/Bonjour"
+    },
+    {
+        country: "Cape Verde",
+        flag: "https://flagcdn.com/cv.svg",
+        language: "Portuguese",
+        hello: "Olá"
+    },
+    {
+        country: "Central African Republic",
+        flag: "https://flagcdn.com/cf.svg",
+        language: "Sango/French",
+        hello: "Balao/Bonjour"
+    },
+    {
+        country: "Chad",
+        flag: "https://flagcdn.com/td.svg",
+        language: "Arabic/French",
+        hello: "Marhaba/Bonjour"
+    },
+    {
+        country: "Chile",
+        flag: "https://flagcdn.com/cl.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "China",
+        flag: "https://flagcdn.com/cn.svg",
+        language: "Mandarin",
+        hello: "Nǐ hǎo"
+    },
+    {
+        country: "Colombia",
+        flag: "https://flagcdn.com/co.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Comoros",
+        flag: "https://flagcdn.com/km.svg",
+        language: "Comorian/Arabic/French",
+        hello: "Salamu/Marhaba/Bonjour"
+    },
+    {
+        country: "Congo (Republic)",
+        flag: "https://flagcdn.com/cg.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Congo (Democratic Republic)",
+        flag: "https://flagcdn.com/cd.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Costa Rica",
+        flag: "https://flagcdn.com/cr.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Croatia",
+        flag: "https://flagcdn.com/hr.svg",
+        language: "Croatian",
+        hello: "Bok"
+    },
+    {
+        country: "Cuba",
+        flag: "https://flagcdn.com/cu.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Cyprus",
+        flag: "https://flagcdn.com/cy.svg",
+        language: "Greek/Turkish",
+        hello: "Geia sas/Merhaba"
+    },
+    {
+        country: "Czech Republic",
+        flag: "https://flagcdn.com/cz.svg",
+        language: "Czech",
+        hello: "Ahoj"
+    },
+    {
+        country: "Denmark",
+        flag: "https://flagcdn.com/dk.svg",
+        language: "Danish",
+        hello: "Hej"
+    },
+    {
+        country: "Djibouti",
+        flag: "https://flagcdn.com/dj.svg",
+        language: "Arabic/French",
+        hello: "Marhaba/Bonjour"
+    },
+    {
+        country: "Dominica",
+        flag: "https://flagcdn.com/dm.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Dominican Republic",
+        flag: "https://flagcdn.com/do.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "East Timor",
+        flag: "https://flagcdn.com/tl.svg",
+        language: "Tetum/Portuguese",
+        hello: "Bondia/Olá"
+    },
+    {
+        country: "Ecuador",
+        flag: "https://flagcdn.com/ec.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Egypt",
+        flag: "https://flagcdn.com/eg.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "El Salvador",
+        flag: "https://flagcdn.com/sv.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Equatorial Guinea",
+        flag: "https://flagcdn.com/gq.svg",
+        language: "Spanish/French/Portuguese",
+        hello: "Hola/Bonjour/Olá"
+    },
+    {
+        country: "Eritrea",
+        flag: "https://flagcdn.com/er.svg",
+        language: "Tigrinya/Arabic",
+        hello: "Selam/Marhaba"
+    },
+    {
+        country: "Estonia",
+        flag: "https://flagcdn.com/ee.svg",
+        language: "Estonian",
+        hello: "Tere"
+    },
+    {
+        country: "Eswatini",
+        flag: "https://flagcdn.com/sz.svg",
+        language: "Swati/English",
+        hello: "Sawubona/Hello"
+    },
+    {
+        country: "Ethiopia",
+        flag: "https://flagcdn.com/et.svg",
+        language: "Amharic",
+        hello: "Selam"
+    },
+    {
+        country: "Fiji",
+        flag: "https://flagcdn.com/fj.svg",
+        language: "English/Fijian/Hindi",
+        hello: "Hello/Bula/Namaste"
+    },
+    {
+        country: "Finland",
+        flag: "https://flagcdn.com/fi.svg",
+        language: "Finnish/Swedish",
+        hello: "Hei/Hej"
+    },
+    {
+        country: "Gabon",
+        flag: "https://flagcdn.com/ga.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Gambia",
+        flag: "https://flagcdn.com/gm.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Georgia",
+        flag: "https://flagcdn.com/ge.svg",
+        language: "Georgian",
+        hello: "Gamarjoba"
+    },
+    {
+        country: "Germany",
+        flag: "https://flagcdn.com/de.svg",
+        language: "German",
+        hello: "Hallo"
+    },
+    {
+        country: "Ghana",
+        flag: "https://flagcdn.com/gh.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Greece",
+        flag: "https://flagcdn.com/gr.svg",
+        language: "Greek",
+        hello: "Yassou"
+    },
+    {
+        country: "Grenada",
+        flag: "https://flagcdn.com/gd.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Guatemala",
+        flag: "https://flagcdn.com/gt.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Guinea",
+        flag: "https://flagcdn.com/gn.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Guinea-Bissau",
+        flag: "https://flagcdn.com/gw.svg",
+        language: "Portuguese",
+        hello: "Olá"
+    },
+    {
+        country: "Guyana",
+        flag: "https://flagcdn.com/gy.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Haiti",
+        flag: "https://flagcdn.com/ht.svg",
+        language: "Haitian Creole/French",
+        hello: "Bonjou/Bonjour"
+    },
+    {
+        country: "Honduras",
+        flag: "https://flagcdn.com/hn.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Hungary",
+        flag: "https://flagcdn.com/hu.svg",
+        language: "Hungarian",
+        hello: "Szia"
+    },
+    {
+        country: "Iceland",
+        flag: "https://flagcdn.com/is.svg",
+        language: "Icelandic",
+        hello: "Halló"
+    },
+    {
+        country: "India",
+        flag: "https://flagcdn.com/in.svg",
+        language: "Hindi/English",
+        hello: "Namaste/Hello"
+    },
+    {
+        country: "Indonesia",
+        flag: "https://flagcdn.com/id.svg",
+        language: "Indonesian",
+        hello: "Halo"
+    },
+    {
+        country: "Iran",
+        flag: "https://flagcdn.com/ir.svg",
+        language: "Persian",
+        hello: "Salaam"
+    },
+    {
+        country: "Iraq",
+        flag: "https://flagcdn.com/iq.svg",
+        language: "Arabic/Kurdish",
+        hello: "Marhaba/Slav"
+    },
+    {
+        country: "Ireland",
+        flag: "https://flagcdn.com/ie.svg",
+        language: "English/Irish",
+        hello: "Hello/Dia dhuit"
+    },
+    {
+        country: "Israel",
+        flag: "https://flagcdn.com/il.svg",
+        language: "Hebrew/Arabic",
+        hello: "Shalom/Marhaba"
+    },
+    {
+        country: "Italy",
+        flag: "https://flagcdn.com/it.svg",
+        language: "Italian",
+        hello: "Ciao"
+    },
+    {
+        country: "Jamaica",
+        flag: "https://flagcdn.com/jm.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Japan",
+        flag: "https://flagcdn.com/jp.svg",
+        language: "Japanese",
+        hello: "Konnichiwa"
+    },
+    {
+        country: "Jordan",
+        flag: "https://flagcdn.com/jo.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Kazakhstan",
+        flag: "https://flagcdn.com/kz.svg",
+        language: "Kazakh/Russian",
+        hello: "Salem/Zdravstvuyte"
+    },
+    {
+        country: "Kenya",
+        flag: "https://flagcdn.com/ke.svg",
+        language: "Swahili/English",
+        hello: "Jambo/Hello"
+    },
+    {
+        country: "Kiribati",
+        flag: "https://flagcdn.com/ki.svg",
+        language: "English/Gilbertese",
+        hello: "Hello/Mauri"
+    },
+    {
+        country: "Kosovo",
+        flag: "https://flagcdn.com/xk.svg",
+        language: "Albanian/Serbian",
+        hello: "Përshëndetje/Zdravo"
+    },
+    {
+        country: "Kuwait",
+        flag: "https://flagcdn.com/kw.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Kyrgyzstan",
+        flag: "https://flagcdn.com/kg.svg",
+        language: "Kyrgyz/Russian",
+        hello: "Salam/Zdravstvuyte"
+    },
+    {
+        country: "Laos",
+        flag: "https://flagcdn.com/la.svg",
+        language: "Lao",
+        hello: "Sabaidee"
+    },
+    {
+        country: "Latvia",
+        flag: "https://flagcdn.com/lv.svg",
+        language: "Latvian",
+        hello: "Sveiki"
+    },
+    {
+        country: "Lebanon",
+        flag: "https://flagcdn.com/lb.svg",
+        language: "Arabic/French",
+        hello: "Marhaba/Bonjour"
+    },
+    {
+        country: "Lesotho",
+        flag: "https://flagcdn.com/ls.svg",
+        language: "Sesotho/English",
+        hello: "Lumela/Hello"
+    },
+    {
+        country: "Liberia",
+        flag: "https://flagcdn.com/lr.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Libya",
+        flag: "https://flagcdn.com/ly.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Liechtenstein",
+        flag: "https://flagcdn.com/li.svg",
+        language: "German",
+        hello: "Hallo"
+    },
+    {
+        country: "Lithuania",
+        flag: "https://flagcdn.com/lt.svg",
+        language: "Lithuanian",
+        hello: "Labas"
+    },
+    {
+        country: "Luxembourg",
+        flag: "https://flagcdn.com/lu.svg",
+        language: "Luxembourgish/French/German",
+        hello: "Moien/Bonjour/Hallo"
+    },
+    {
+        country: "Madagascar",
+        flag: "https://flagcdn.com/mg.svg",
+        language: "Malagasy/French",
+        hello: "Manao ahoana/Bonjour"
+    },
+    {
+        country: "Malawi",
+        flag: "https://flagcdn.com/mw.svg",
+        language: "Chichewa/English",
+        hello: "Moni/Hello"
+    },
+    {
+        country: "Malaysia",
+        flag: "https://flagcdn.com/my.svg",
+        language: "Malay",
+        hello: "Selamat"
+    },
+    {
+        country: "Maldives",
+        flag: "https://flagcdn.com/mv.svg",
+        language: "Dhivehi",
+        hello: "Assalaamu Alaikum"
+    },
+    {
+        country: "Mali",
+        flag: "https://flagcdn.com/ml.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Malta",
+        flag: "https://flagcdn.com/mt.svg",
+        language: "Maltese/English",
+        hello: "Bongu/Hello"
+    },
+    {
+        country: "Marshall Islands",
+        flag: "https://flagcdn.com/mh.svg",
+        language: "Marshallese/English",
+        hello: "Iakwe/Hello"
+    },
+    {
+        country: "Mauritania",
+        flag: "https://flagcdn.com/mr.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Mauritius",
+        flag: "https://flagcdn.com/mu.svg",
+        language: "English/French",
+        hello: "Hello/Bonjour"
+    },
+    {
+        country: "Mexico",
+        flag: "https://flagcdn.com/mx.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Micronesia",
+        flag: "https://flagcdn.com/fm.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Moldova",
+        flag: "https://flagcdn.com/md.svg",
+        language: "Romanian",
+        hello: "Salut"
+    },
+    {
+        country: "Monaco",
+        flag: "https://flagcdn.com/mc.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Mongolia",
+        flag: "https://flagcdn.com/mn.svg",
+        language: "Mongolian",
+        hello: "Sain baina uu"
+    },
+    {
+        country: "Montenegro",
+        flag: "https://flagcdn.com/me.svg",
+        language: "Montenegrin",
+        hello: "Zdravo"
+    },
+    {
+        country: "Morocco",
+        flag: "https://flagcdn.com/ma.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Mozambique",
+        flag: "https://flagcdn.com/mz.svg",
+        language: "Portuguese",
+        hello: "Olá"
+    },
+    {
+        country: "Myanmar",
+        flag: "https://flagcdn.com/mm.svg",
+        language: "Burmese",
+        hello: "Mingalarba"
+    },
+    {
+        country: "Namibia",
+        flag: "https://flagcdn.com/na.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Nauru",
+        flag: "https://flagcdn.com/nr.svg",
+        language: "Nauruan/English",
+        hello: "Ekamawir Omo/Hello"
+    },
+    {
+        country: "Nepal",
+        flag: "https://flagcdn.com/np.svg",
+        language: "Nepali",
+        hello: "Namaste"
+    },
+    {
+        country: "Netherlands",
+        flag: "https://flagcdn.com/nl.svg",
+        language: "Dutch",
+        hello: "Hallo"
+    },
+    {
+        country: "New Zealand",
+        flag: "https://flagcdn.com/nz.svg",
+        language: "English/Māori",
+        hello: "Hello/Kia ora"
+    },
+    {
+        country: "Nicaragua",
+        flag: "https://flagcdn.com/ni.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Niger",
+        flag: "https://flagcdn.com/ne.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Nigeria",
+        flag: "https://flagcdn.com/ng.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "North Korea",
+        flag: "https://flagcdn.com/kp.svg",
+        language: "Korean",
+        hello: "Annyeonghaseyo"
+    },
+    {
+        country: "North Macedonia",
+        flag: "https://flagcdn.com/mk.svg",
+        language: "Macedonian",
+        hello: "Zdravo"
+    },
+    {
+        country: "Norway",
+        flag: "https://flagcdn.com/no.svg",
+        language: "Norwegian",
+        hello: "Hei"
+    },
+    {
+        country: "Oman",
+        flag: "https://flagcdn.com/om.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Pakistan",
+        flag: "https://flagcdn.com/pk.svg",
+        language: "Urdu/English",
+        hello: "Assalam u Alaikum/Hello"
+    },
+    {
+        country: "Palau",
+        flag: "https://flagcdn.com/pw.svg",
+        language: "Palauan/English",
+        hello: "Alii/Hello"
+    },
+    {
+        country: "Palestine",
+        flag: "https://flagcdn.com/ps.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Panama",
+        flag: "https://flagcdn.com/pa.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Papua New Guinea",
+        flag: "https://flagcdn.com/pg.svg",
+        language: "English/Tok Pisin/Hiri Motu",
+        hello: "Hello/Gude/Halo"
+    },
+    {
+        country: "Paraguay",
+        flag: "https://flagcdn.com/py.svg",
+        language: "Spanish/Guaraní",
+        hello: "Hola/Mba'éichapa"
+    },
+    {
+        country: "Peru",
+        flag: "https://flagcdn.com/pe.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Philippines",
+        flag: "https://flagcdn.com/ph.svg",
+        language: "Filipino/English",
+        hello: "Kumusta/Hello"
+    },
+    {
+        country: "Poland",
+        flag: "https://flagcdn.com/pl.svg",
+        language: "Polish",
+        hello: "Cześć"
+    },
+    {
+        country: "Portugal",
+        flag: "https://flagcdn.com/pt.svg",
+        language: "Portuguese",
+        hello: "Olá"
+    },
+    {
+        country: "Qatar",
+        flag: "https://flagcdn.com/qa.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Romania",
+        flag: "https://flagcdn.com/ro.svg",
+        language: "Romanian",
+        hello: "Salut"
+    },
+    {
+        country: "Russia",
+        flag: "https://flagcdn.com/ru.svg",
+        language: "Russian",
+        hello: "Zdravstvuyte"
+    },
+    {
+        country: "Rwanda",
+        flag: "https://flagcdn.com/rw.svg",
+        language: "Kinyarwanda/French/English",
+        hello: "Muraho/Bonjour/Hello"
+    },
+    {
+        country: "Saint Kitts and Nevis",
+        flag: "https://flagcdn.com/kn.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Saint Lucia",
+        flag: "https://flagcdn.com/lc.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Saint Vincent and the Grenadines",
+        flag: "https://flagcdn.com/vc.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Samoa",
+        flag: "https://flagcdn.com/ws.svg",
+        language: "Samoan/English",
+        hello: "Talofa/Hello"
+    },
+    {
+        country: "San Marino",
+        flag: "https://flagcdn.com/sm.svg",
+        language: "Italian",
+        hello: "Ciao"
+    },
+    {
+        country: "São Tomé and Príncipe",
+        flag: "https://flagcdn.com/st.svg",
+        language: "Portuguese",
+        hello: "Olá"
+    },
+    {
+        country: "Saudi Arabia",
+        flag: "https://flagcdn.com/sa.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Senegal",
+        flag: "https://flagcdn.com/sn.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Serbia",
+        flag: "https://flagcdn.com/rs.svg",
+        language: "Serbian",
+        hello: "Zdravo"
+    },
+    {
+        country: "Seychelles",
+        flag: "https://flagcdn.com/sc.svg",
+        language: "English/French/Seychellois Creole",
+        hello: "Hello/Bonjour/Bonzour"
+    },
+    {
+        country: "Sierra Leone",
+        flag: "https://flagcdn.com/sl.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Singapore",
+        flag: "https://flagcdn.com/sg.svg",
+        language: "English/Malay/Mandarin/Tamil",
+        hello: "Hello/Selamat/Nǐ hǎo/Vanakkam"
+    },
+    {
+        country: "Slovakia",
+        flag: "https://flagcdn.com/sk.svg",
+        language: "Slovak",
+        hello: "Ahoj"
+    },
+    {
+        country: "Slovenia",
+        flag: "https://flagcdn.com/si.svg",
+        language: "Slovenian",
+        hello: "Zdravo"
+    },
+    {
+        country: "Solomon Islands",
+        flag: "https://flagcdn.com/sb.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Somalia",
+        flag: "https://flagcdn.com/so.svg",
+        language: "Somali/Arabic",
+        hello: "Salam/Marhaba"
+    },
+    {
+        country: "South Africa",
+        flag: "https://flagcdn.com/za.svg",
+        language: "11 Official Languages",
+        hello: "Hello/Sawubona/Dumela"
+    },
+    {
+        country: "South Korea",
+        flag: "https://flagcdn.com/kr.svg",
+        language: "Korean",
+        hello: "Annyeonghaseyo"
+    },
+    {
+        country: "South Sudan",
+        flag: "https://flagcdn.com/ss.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Spain",
+        flag: "https://flagcdn.com/es.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Sri Lanka",
+        flag: "https://flagcdn.com/lk.svg",
+        language: "Sinhala/Tamil",
+        hello: "Ayubowan/Vanakkam"
+    },
+    {
+        country: "Sudan",
+        flag: "https://flagcdn.com/sd.svg",
+        language: "Arabic/English",
+        hello: "Marhaba/Hello"
+    },
+    {
+        country: "Suriname",
+        flag: "https://flagcdn.com/sr.svg",
+        language: "Dutch",
+        hello: "Hallo"
+    },
+    {
+        country: "Sweden",
+        flag: "https://flagcdn.com/se.svg",
+        language: "Swedish",
+        hello: "Hej"
+    },
+    {
+        country: "Switzerland",
+        flag: "https://flagcdn.com/ch.svg",
+        language: "German/French/Italian/Romansh",
+        hello: "Hallo/Bonjour/Ciao/Allegra"
+    },
+    {
+        country: "Syria",
+        flag: "https://flagcdn.com/sy.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Taiwan",
+        flag: "https://flagcdn.com/tw.svg",
+        language: "Mandarin",
+        hello: "Nǐ hǎo"
+    },
+    {
+        country: "Tajikistan",
+        flag: "https://flagcdn.com/tj.svg",
+        language: "Tajik",
+        hello: "Salom"
+    },
+    {
+        country: "Tanzania",
+        flag: "https://flagcdn.com/tz.svg",
+        language: "Swahili/English",
+        hello: "Jambo/Hello"
+    },
+    {
+        country: "Thailand",
+        flag: "https://flagcdn.com/th.svg",
+        language: "Thai",
+        hello: "Sawadee"
+    },
+    {
+        country: "Togo",
+        flag: "https://flagcdn.com/tg.svg",
+        language: "French",
+        hello: "Bonjour"
+    },
+    {
+        country: "Tonga",
+        flag: "https://flagcdn.com/to.svg",
+        language: "Tongan/English",
+        hello: "Mālō e lelei/Hello"
+    },
+    {
+        country: "Trinidad and Tobago",
+        flag: "https://flagcdn.com/tt.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Tunisia",
+        flag: "https://flagcdn.com/tn.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Turkey",
+        flag: "https://flagcdn.com/tr.svg",
+        language: "Turkish",
+        hello: "Merhaba"
+    },
+    {
+        country: "Turkmenistan",
+        flag: "https://flagcdn.com/tm.svg",
+        language: "Turkmen",
+        hello: "Salam"
+    },
+    {
+        country: "Tuvalu",
+        flag: "https://flagcdn.com/tv.svg",
+        language: "Tuvaluan/English",
+        hello: "Talofa/Hello"
+    },
+    {
+        country: "Uganda",
+        flag: "https://flagcdn.com/ug.svg",
+        language: "English/Swahili",
+        hello: "Hello/Jambo"
+    },
+    {
+        country: "Ukraine",
+        flag: "https://flagcdn.com/ua.svg",
+        language: "Ukrainian",
+        hello: "Pryvit"
+    },
+    {
+        country: "United Arab Emirates",
+        flag: "https://flagcdn.com/ae.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "United Kingdom",
+        flag: "https://flagcdn.com/gb.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Uruguay",
+        flag: "https://flagcdn.com/uy.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Uzbekistan",
+        flag: "https://flagcdn.com/uz.svg",
+        language: "Uzbek",
+        hello: "Salom"
+    },
+    {
+        country: "Vanuatu",
+        flag: "https://flagcdn.com/vu.svg",
+        language: "Bislama/English/French",
+        hello: "Halo/Hello/Bonjour"
+    },
+    {
+        country: "Vatican City",
+        flag: "https://flagcdn.com/va.svg",
+        language: "Italian/Latin",
+        hello: "Ciao/Salve"
+    },
+    {
+        country: "Venezuela",
+        flag: "https://flagcdn.com/ve.svg",
+        language: "Spanish",
+        hello: "Hola"
+    },
+    {
+        country: "Vietnam",
+        flag: "https://flagcdn.com/vn.svg",
+        language: "Vietnamese",
+        hello: "Xin chào"
+    },
+    {
+        country: "Yemen",
+        flag: "https://flagcdn.com/ye.svg",
+        language: "Arabic",
+        hello: "Marhaba"
+    },
+    {
+        country: "Zambia",
+        flag: "https://flagcdn.com/zm.svg",
+        language: "English",
+        hello: "Hello"
+    },
+    {
+        country: "Zimbabwe",
+        flag: "https://flagcdn.com/zw.svg",
+        language: "16 Official Languages",
+        hello: "Hello/Mhoro/Sawubona"
+    }
         ];
         
         // DOM elements
@@ -464,6 +1601,8 @@
         const overlayRestartBtn = document.getElementById('overlay-restart-btn');
         const overlayHardModeBtn = document.getElementById('overlay-hard-mode-btn');
         const hardModeIndicator = document.getElementById('hard-mode-indicator');
+	const correctSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2870/2870-preview.mp3');
+	const incorrectSound = new Audio('https://assets.mixkit.co/active_storage/sfx/948/948-preview.mp3');
         
         // State variables
         let currentCardIndex = 0;
@@ -739,7 +1878,9 @@
             
             // Show feedback in overlay
             if (selectedOption === correctAnswer) {
-                overlayFeedback.textContent = 'Correct! 🎉';
+		// Play the correct sound
+        	correctSound.play();
+                overlayFeedback.textContent = '🎉 Correct! 🎉';
                 overlayFeedback.style.color = '#4CAF50';
                 hasAnsweredCorrectly = true;
                 
@@ -753,8 +1894,9 @@
                     overlayContinueBtn.style.display = 'inline-block';
                 }
             } else {
+		incorrectSound.play();
                 // Show game over message
-                overlayFeedback.textContent = 'Wrong answer!';
+                overlayFeedback.textContent = 'Wrong answer 😖';
                 overlayFeedback.style.color = '#f44336';
                 overlayGameOver.style.display = 'block';
                 overlayRestartBtn.style.display = 'inline-block';
